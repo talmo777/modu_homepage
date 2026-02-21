@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모두의 문제 연구소 | Data for All</title>
+  <meta name="description" content="주변의 문제를 수리데이터사이언스적 시각으로 바라보며 해결하는 모두의 문제 연구소">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Canvas for Background Particles -->
+  <canvas id="bg-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">모두의 <span class="logo-highlight">문제</span> 연구소</a>
+      
+      <div class="nav-links" id="nav-links">
+        <a href="#about">소개</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#members">연구원</a>
+        <a href="#department">수리데이터사이언스학과</a>
+        <a href="#contact">Contact</a>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" style="height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: var(--nav-height);">
+      <div class="container reveal-up">
+        <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 2rem; font-weight: 800; letter-spacing: -1px;">
+          세상의 모든 문제,<br>
+          <span style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">데이터</span>로 해답을 찾다
+        </h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem; line-height: 1.8;">
+          <span id="typing-text"></span><span class="typing-cursor"></span>
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+          <a href="#apply" class="btn btn-outline">연구원 지원하기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <div class="reveal-up">
+          <h2 class="section-title">연구소 소개</h2>
+          <p class="section-subtitle">우리는 직관과 추측이 아닌, 정확한 데이터와 수학적 모델링을 통해 사회 주변의 문제를 정의하고 해결책을 제시합니다.</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+          <div class="glass-card reveal-up stagger-1">
+            <div style="font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 1rem;"><i class="ri-eye-line"></i></div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">관찰 (Observe)</h3>
+            <p style="color: var(--text-secondary);">당연하게 여겨지던 일상의 불편함과 소외된 이웃의 문제를 수리데이터사이언스적 시각으로 포착합니다.</p>
+          </div>
+          <div class="glass-card reveal-up stagger-2">
+            <div style="font-size: 2.5rem; color: var(--accent-purple); margin-bottom: 1rem;"><i class="ri-database-2-line"></i></div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">분석 (Analyze)</h3>
+            <p style="color: var(--text-secondary);">흩어진 데이터를 수집하고 정제하여, 문제의 이면에 숨겨진 패턴과 상호작용을 수학적으로 모델링합니다.</p>
+          </div>
+          <div class="glass-card reveal-up stagger-3">
+            <div style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem;"><i class="ri-lightbulb-flash-line"></i></div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">해결 (Solve)</h3>
+            <p style="color: var(--text-secondary);">도출된 인사이트를 바탕으로 실질적이고 지속 가능한 개선 방향과 정책적 대안을 세상에 제안합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section will be injected by JS -->
+    <section id="projects">
+      <div class="container">
+        <div class="reveal-up">
+          <h2 class="section-title">프로젝트</h2>
+          <p class="section-subtitle">데이터로 증명하고 코드로 구축한 우리의 문제 해결 과정입니다.</p>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap;" class="reveal-up stagger-1" id="project-filters">
+          <button class="btn btn-outline active-filter" data-filter="all" style="border-color: var(--accent-blue); background: rgba(79, 110, 247, 0.1);">전체보기</button>
+          <button class="btn btn-outline" data-filter="ongoing">진행중</button>
+          <button class="btn btn-outline" data-filter="completed">완료</button>
+          <button class="btn btn-outline" data-filter="planned">진행 예정</button>
+        </div>
+        
+        <!-- Cards Grid -->
+        <div id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
+          <!-- JS 렌더링 영역 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Modal (Hidden by default) -->
+    <div id="project-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+      <div class="glass-card" style="width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s ease;" id="modal-content-area">
+        <button id="close-modal" style="position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: white;"><i class="ri-close-line"></i></button>
+        <div id="modal-body">
+          <!-- JS 렌더링 영역 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Members Section will be injected by JS -->
+    <section id="members">
+      <div class="container">
+        <div class="reveal-up">
+          <h2 class="section-title">연구원</h2>
+          <p class="section-subtitle">세상을 향한 호기심을 데이터로 풀어내는 전문가들입니다.</p>
+        </div>
+        
+        <div id="members-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; perspective: 1000px;">
+          <!-- JS 렌더링 영역 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Department Section will be injected by JS -->
+    <section id="department" style="background: linear-gradient(to right, rgba(26, 31, 53, 0.4), transparent);">
+      <div class="container" id="department-container">
+        <!-- JS 렌더링 영역 -->
+      </div>
+    </section>
+
+    <!-- Contact & Apply Sections -->
+    <section id="contact">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 4rem;">
+          
+          <!-- Business Contact -->
+          <div class="reveal-up">
+            <h2 class="section-title">비즈니스 제안</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">산학협력, 공공기관 협업 등 데이터 분석이 필요한 곳이라면 어디든 함께합니다.</p>
+            
+            <form class="glass-card" id="contact-form">
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">소속 기관/기업명</label>
+                <input type="text" required style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; color: white; font-family: inherit;">
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">이메일 주소</label>
+                <input type="email" required style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; color: white; font-family: inherit;">
+              </div>
+              <div style="margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">제안 내용</label>
+                <textarea required rows="4" style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; color: white; font-family: inherit; resize: vertical;"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">협업 제안하기</button>
+            </form>
+          </div>
+
+          <!-- Apply -->
+          <div id="apply" class="reveal-up stagger-2">
+            <h2 class="section-title" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); -webkit-background-clip: text;">지원하기</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8;">
+              <strong style="color: white; font-size: 1.2rem;">세상을 바꿀 다음 줄의 코드는, 당신의 손끝에서 시작됩니다.</strong><br>
+              완벽한 데이터 사이언티스트보다, 문제를 집요하게 파고드는 집념을 가진 분을 기다립니다. 데이터 분석 경험이 부족해도 좋습니다. 세상을 이롭게 하려는 따뜻한 시선과 숫자에 대한 애정만 있다면, 당신도 눈부신 변화의 주인공이 될 수 있습니다.
+            </p>
+            
+            <form class="glass-card" style="border-color: rgba(166, 193, 238, 0.3);" id="apply-form">
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">이름 및 학번</label>
+                <input type="text" placeholder="예: 홍길동 (23학번)" required style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; color: white; font-family: inherit;">
+              </div>
+              <div style="margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">해결해보고 싶은 주변의 문제가 있나요?</label>
+                <textarea required placeholder="거창하지 않아도 좋습니다. 평소 느꼈던 불편함이나 호기심을 자유롭게 적어주세요." rows="4" style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; color: white; font-family: inherit; resize: vertical;"></textarea>
+              </div>
+              <button type="submit" class="btn" style="width: 100%; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #000; box-shadow: 0 4px 15px rgba(251, 194, 235, 0.3);">용기 내어 지원하기</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background: rgba(0,0,0,0.5); border-top: 1px solid var(--border-light); padding: 4rem 0 2rem;">
+    <div class="container">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 3rem;">
+        <div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">모두의 <span class="logo-highlight">문제</span> 연구소</h3>
+          <p style="color: var(--text-secondary); max-width: 300px;">수리데이터사이언스학과 공식 학회<br>Data for All, Solutions for Society.</p>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 1rem;">Follow Us</h4>
+          <!-- Instagram Embed Link -->
+          <a href="https://instagram.com" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); transition: color var(--transition-fast);">
+            <i class="ri-instagram-line" style="font-size: 1.5rem; color: #E1306C;"></i>
+            <span>@modu_problem_lab</span>
+          </a>
+        </div>
+      </div>
+      
+      <div style="text-align: center; color: var(--text-secondary); font-size: 0.9rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        &copy; 2024 모두의 문제 연구소. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
